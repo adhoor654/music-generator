@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/style.css" />
+        <title>Music Generator</title>
+    </head>
+    
+    <body>
+        <nav class="navbar">
+            <div class="logo"><a href="{{ url_for('main') }}">HOME</a></div>
+            <ul  class="nav-links">
+                <div class="menu">
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                    <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
+                    <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
+                </div>
+            </ul>
+        </nav>
+        <form name="generate_music", method="POST"><br/>
+            <input type="hidden" name="height", placeholder="Enter height in cm" value="12" required/>
+            <input type="hidden" name="weight", placeholder="Enter weight in kg" value="1.2" required/>
+            <button value="Generate">Generate Music</button>
+            <div class="home_grid">
+                <div class="home_one">
+                    <fieldset>
+                        <legend>Genre</legend>
+                        <input type="radio" id="classical" name="genre" checked="checked">
+                        <label for="classical">Classical</label><br>
+                        <input type="radio" id="traditional" name="genre">
+                        <label for="traditional">Traditional</label><br>
+                        <input type="radio" id="jazz" name="genre">
+                        <label for="jazz">Jazz</label><br>
+                    </fieldset>
+                </div>
+                <div class="home_two">
+                    <div class="slider">
+                        <label for="tempo">Tempo</label><br/>
+                        <input type="range" min="1" value="2" max="3" id="tempo" list="values"/>
+                        <datalist id="values">
+                            <option value="1" label="slow"></option>
+                            <option value="2"></option>
+                            <option value="3" label="fast"></option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="home_three">
+                    <div class="slider">
+                        <label for="length">Length</label><br/>
+                        <input type="range" min="1" value="1" max="3" id="tempo" list="values"/>
+                        <datalist id="values">
+                            <option value="1" label="short"></option>
+                            <option value="2"></option>
+                            <option value="3" label="long"></option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="home_four">
+                    <div class="instrument_box">
+                        <fieldset>
+                            <legend>Instrument Selection</legend>
+                            <div class="instrument_half-box">
+                                
+                                <input type="checkbox" id="piano" name="piano" checked/>
+                                <label for="piano">Piano</label><br/>
+                                <input type="checkbox" id="guitar" name="guitar" checked/>
+                                <label for="guitar">Guitar</label><br/>
+                                <input type="checkbox" id="drums" name="drums" checked/>
+                                <label for="drums">Drums</label><br/>
+                            </div>
+                            <div class="instrument_half-box">
+                            <input type="checkbox" id="violin" name="violin" checked/>
+                            <label for="violin">Violin</label><br/>
+                            <input type="checkbox" id="flute" name="flute" checked/>
+                            <label for="flute">Flute</label><br/>
+                            <input type="checkbox" id="saxophone" name="saxophone" checked/>
+                            <label for="saxophone">Saxophone</label><br/>
+                        </div>
+                        </fieldset>
+                    </div>
+                </div>
+                        <div class="home_five">
+                            <div class="slider">
+                                <label for="dynamics">Dynamic Control</label><br/>
+                                <input type="range" min="1" value="2" max="3" id="dynamics" list="values"/>
+                                <datalist id="values">
+                                    <option value="1" label="soft"></option>
+                                    <option value="2"></option>
+                                    <option value="3" label="loud"></option>
+                                </datalist>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </form>
+        <!-- <form name="form", method="POST", style="text-align: center;">
+            <br>
+            Height: <input type="number" name="height", placeholder="Enter height in cm" required/>
+            <br><br>
+            Weight: <input type="number" name="weight", placeholder="Enter weight in kg" required/>
+            <br><br>
+            <button value="Submit">Run</button>
+        </form> -->
+        <br/>
+        <p style="text-align: center;">{{ output }}</p>
+    </body>
+</html>

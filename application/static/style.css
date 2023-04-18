@@ -1,0 +1,266 @@
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    
+body {
+    font-family: 'Century Gothic', 'Candara', 'Segoe UI';
+    font-size: 20px;
+    background-color: #333;
+    color: #fff
+}
+    
+a {
+    text-decoration: none;
+}
+    
+li {
+    list-style: none;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 30px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+form button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;   
+    font-size: 28px;
+    background-color: teal;
+    color: white;
+}
+
+form button:hover {
+    background-color: #4c9e9e;
+}
+
+form button:active {
+    background-color: teal;
+}
+
+form input {
+    font-size: 20px;
+}
+
+form ul {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: 25%;
+    border-radius: 5px;
+    background-color: #444;
+}
+
+form li:nth-child(odd) {
+    padding-top: 5px;
+}
+
+form li:nth-child(even) {
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.slider input[type="range"] {
+    accent-color: teal;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 80%;
+}
+
+datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    writing-mode: horizontal-tb;
+    width: 80%;
+}
+
+fieldset legend {
+    margin-left:5px;
+    padding: 3px;
+}
+
+fieldset {
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+form input[type="checkbox"] {
+    accent-color: teal;
+}
+
+form input[type="radio"] {
+    accent-color: teal;
+}
+
+.to_top {
+    text-align:center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.to_top a {
+    color: #fff;
+    text-decoration-line: underline;
+    text-decoration-style: dashed; 
+    text-decoration-color: white;
+}
+
+.to_top a:hover {
+    text-decoration-style: solid; 
+}
+
+/* NAVBAR STYLING STARTS */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 40px;
+    background-color: teal;
+    color: #fff;
+}
+
+.nav-links a {
+    font-size: 20px;
+    color: #fff;
+}
+    
+/* NAVBAR LOGO */
+.logo {
+    font-size: 32px;
+}
+
+.logo a {
+    padding: 5px;
+    color: #fff;
+}
+
+.logo:hover {
+    background-color: #4c9e9e;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+/* NAVBAR MENU */
+.menu {
+    display: flex;
+    gap: 1em;
+    font-size: 18px;
+}
+    
+.menu li:hover {
+    background-color: #4c9e9e;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+    
+.menu li {
+    padding: 5px 14px;
+}
+
+.home_grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3,1fr);
+    gap: 50px;
+    grid-auto-rows: minmax(100px, auto);
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 10px;
+}
+
+.home_one {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.home_two {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.home_three {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.home_four {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 2
+}
+
+.home_five {
+    grid-column: 3;
+    grid-row: 2
+}
+
+.instrument_half-box {
+    float:left; 
+    width:50%;
+}
+
+/* FAQ STYLING STARTS */
+.faq {
+    display: flex;
+    padding-left: 15%;
+    max-width: 85%;
+}
+
+.faq-sidebar {
+    padding: 20px;
+    padding-left: 40px;
+    margin-right: 5%;
+    min-width: 25%;
+    height: fit-content;
+    border-radius: 5px;
+    background-color: #444;
+}
+
+.faq ol li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    list-style: decimal;
+    
+}
+
+.faq a {
+    color: #fff;
+    text-decoration-line: underline;
+    text-decoration-style: dashed; 
+    text-decoration-color: white;
+}
+
+.faq a:hover {
+    text-decoration-style: solid;
+}
+
+.faq ul li:nth-child(odd) { /* Q */
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.faq ul li:nth-child(even) { /* A */
+    padding-left: 50px;
+    padding-bottom: 20px;
+    color: #aaa;
+}

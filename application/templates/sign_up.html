@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/style.css" />
+        <title>Music Generator - Sign Up</title>
+    </head>
+    
+    <body>
+        <nav class="navbar">
+            <div class="logo"><a href="{{ url_for('main') }}">HOME</a></div>
+            <ul  class="nav-links">
+                <div class="menu">
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                    <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
+                    <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
+                </div>
+            </ul>
+        </nav>
+        <form name="sign_up", method="POST">
+            <ul>
+                <li><label for="email">Email:</label></li>
+                <li><input type="text" id="email" name="email"></li>
+                <li><label for="password">Password:</label></li>
+                <li><input type="password" id="password" name="password"></li>
+                <li><label for="confirm password">Confirm password:</label></li>
+                <li><input type="confirmpassword" id="confirm password" name="confirm password"></li>
+            </ul>        
+            <button value="Sign Up">Sign Up</button>
+        </form>
+    </body>
+</html>
