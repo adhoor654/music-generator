@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import pandas as pd
 import joblib
+import login_register
 
 PKL_FILEPATH = "ML integration/clf.pkl"
 
@@ -36,9 +37,18 @@ def main():
 def faq():
     return render_template("faq.html")
 
-@app.route('/sign_in/')
+@app.route('/sign_in/', methods=['GET', 'POST'])
 def sign_in():
-    return render_template("sign_in.html")
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        if login_register.authenticate_user(username, password, debug=True):
+            result = "Sign in successful"
+        else:
+            result = "Sign in failed"
+
+    return render_template("sign_in.html", output = result)
 
 @app.route('/sign_up/')
 def sign_up():
