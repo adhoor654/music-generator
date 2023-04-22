@@ -48,11 +48,28 @@ def sign_in():
         else:
             result = "Sign in failed"
 
+    else:
+        result = ""
+
     return render_template("sign_in.html", output = result)
 
-@app.route('/sign_up/')
+@app.route('/sign_up/', methods=['GET', 'POST'])
 def sign_up():
-    return render_template("sign_up.html")
+    if request.method == "POST":
+        username   = request.form.get("username")
+        email      = request.form.get("email")
+        password   = request.form.get("password")
+        password_2 = request.form.get("confirm password")
+
+        if login_register.add_user(username, email, password, debug=True):
+            result = "Sign up successful"
+        else:
+            result = "Sign up failed"
+
+    else:
+        result = ""
+        
+    return render_template("sign_up.html", output = result)
 
 # Run the app
 if __name__ == '__main__':
