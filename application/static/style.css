@@ -60,14 +60,62 @@ form input {
     font-size: 20px;
 }
 
-form ul {
+.sign_up_grid {
+    display: grid;
+    align-items: center;
+    grid-auto-rows: minmax(100px, auto);
     padding: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30px;
-    width: 25%;
+    width: 65%;
     border-radius: 5px;
     background-color: #444;
+}
+
+.sign_up_left {
+    grid-column: 1;
+    grid-row: 1;
+    width: min-content;
+}
+
+.sign_up_right {
+    padding: 20px;
+    padding-bottom:0px;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.sign_up_right ul {
+    padding: 5px;
+    margin-left: 15px;
+    font-size:16px;
+}
+.sign_up_right li {
+    list-style: disc;
+}
+
+.sign_in_container {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: min-content;
+    border-radius: 5px;
+    background-color: #444;
+}
+
+.sign_in_container ul {
+    padding-top: 10px;
+    padding-bottom:10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form ul {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 form li:nth-child(odd) {

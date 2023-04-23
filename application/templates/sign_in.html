@@ -21,13 +21,15 @@
                 </div>
             </ul>
         </nav>
+        
         <form name="sign_in", method="POST">
+            <div class="sign_in_container">
             <ul>
                 <li><label for="username">Username:</label></li>
                 <li><input type="text" id="username" name="username" required></li>
                 <li><label for="password">Password:</label></li>
                 <li><input type="password" id="password" name="password" required></li>
-            </ul>        
+            </ul>   </div>     
             <button value="Sign In">Sign In</button>
         </form>
         <p style="text-align: center;">{{ output }}</p>

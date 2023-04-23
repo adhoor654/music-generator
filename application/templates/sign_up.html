@@ -22,21 +22,40 @@
             </ul>
         </nav>
         <form name="sign_up", method="POST">
-            <ul>
-                <li><label for="username">Username:</label></li>
-                <li><input type="text" id="username" name="username" maxlength="25" required value="{{ request.form['username'] }}"></li>
-                
-                <li><label for="email">Email:</label></li>
-                <li><input type="text" id="email" name="email" maxlength="256" required value="{{ request.form['email'] }}"></li>
-                
-                <li><label for="password">Password:</label></li>
-                <li><input type="password" id="password" name="password" maxlength="20" required value="{{ request.form['password'] }}"></li>
-                
-                <li><label for="confirm password">Confirm password:</label></li>
-                <li><input type="password" id="confirm password" name="confirm password" maxlength="20" required value="{{ request.form['confirm password'] }}"></li>
-            </ul>        
-            <button value="Sign Up">Sign Up</button>
-        </form>
+        <div class="sign_up_grid">
+            
+            <div class="sign_up_left">
+                <ul>
+                    <li><label for="username">Username:</label></li>
+                    <li><input type="text" id="username" name="username" maxlength="25" required value="{{ request.form['username'] }}"></li>
+                    
+                    <li><label for="email">Email:</label></li>
+                    <li><input type="text" id="email" name="email" maxlength="256" required value="{{ request.form['email'] }}"></li>
+                    
+                    <li><label for="password">Password:</label></li>
+                    <li><input type="password" id="password" name="password" maxlength="20" required value="{{ request.form['password'] }}"></li>
+                    
+                    <li><label for="confirm password">Confirm password:</label></li>
+                    <li><input type="password" id="confirm password" name="confirm password" maxlength="20" required value="{{ request.form['confirm password'] }}"></li>
+                </ul>        
+            </div>
+            <div class="sign_up_right">
+                <p>Username should meet this criteria:</p>
+                <ul>
+                    <li>6 to 25 characters</li>
+                    <li>includes only alphanumeric characters, hyphens, and underscores</li>
+                </ul>
+                <br/>
+                <p>Password should meet this criteria:</p>
+                <ul>
+                    <li>8 to 20 characters</li>
+                    <li>includes atleast 1 uppercase letter, 1 lowercase letter, and 1 number</li>
+                </ul>
+            </div>
+        
+        </div>
+        <button value="Sign Up">Sign Up</button>
+            </form>
         <p style="text-align: center;">{{ output }}</p>
     </body>
 </html>
