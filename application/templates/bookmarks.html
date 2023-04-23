@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../static/style.css" />
-        <title>Music Generator - Sign In</title>
+        <title>Music Generator - Your Bookmarks</title>
     </head>
 
     <body>
@@ -21,15 +21,6 @@
                 </div>
             </ul>
         </nav>
-        <form name="sign_in", method="POST">
-            <ul>
-                <li><label for="username">Username:</label></li>
-                <li><input type="text" id="username" name="username" required></li>
-                <li><label for="password">Password:</label></li>
-                <li><input type="password" id="password" name="password" required></li>
-            </ul>        
-            <button value="Sign In">Sign In</button>
-        </form>
-        <p style="text-align: center;">{{ output }}</p>
+        <h1>{{ session["username"] }}'s Bookmarks</h1>
     </body>
 </html>

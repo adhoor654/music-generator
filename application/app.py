@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, session
+from flask_session import Session
 import pandas as pd
 import joblib
 import login_register
@@ -7,6 +8,9 @@ PKL_FILEPATH = "ML integration/clf.pkl"
 
 # Declare a Flask app
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 # Bind '/' to main()
 @app.route('/', methods=['GET', 'POST'])
@@ -45,6 +49,9 @@ def sign_in():
         
         if login_register.authenticate_user(username, password, debug=True):
             result = "Sign in successful"
+            session["logged_in"] = True
+            session["username"] = username
+            return redirect("/") #redirect to home page
         else:
             result = "Sign in failed"
 
@@ -66,6 +73,9 @@ def sign_up():
         if form_is_ok[0]:
             if login_register.add_user(username, email, password, debug=True):
                 result = "Thanks for signing up!"
+                session["logged_in"] = True
+                session["username"] = username
+                return redirect("/") #redirect to home page
             else:
                 result = "Sorry, something went wrong."
         else:
@@ -74,6 +84,16 @@ def sign_up():
         result = ""
 
     return render_template("sign_up.html", output = result)
+
+@app.route('/sign_out/')
+def sign_out():
+    session["logged_in"] = False
+    session["username"] = None
+    return render_template("sign_out.html")
+
+@app.route('/bookmarks/')
+def bookmarks():
+    return render_template("bookmarks.html")
 
 # Run the app
 if __name__ == '__main__':

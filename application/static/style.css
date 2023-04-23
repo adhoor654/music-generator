@@ -24,7 +24,8 @@ h1 {
     text-align: center;
     padding-bottom: 30px;
     font-weight: normal;
-    font-style: italic;
+    text-transform: capitalize;
+    font-variant-caps: small-caps;
 }
 
 form {
