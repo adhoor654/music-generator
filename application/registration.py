@@ -1,5 +1,6 @@
 from db_connection import conn_pool
 from argon2 import PasswordHasher
+import re
 
 def authenticate_user(username, password, debug=False):
     if(debug): print(username, password)
@@ -41,15 +42,15 @@ def authenticate_user(username, password, debug=False):
     return True
 #end authenticate_user()
 
-def check_registration_params(username, email, password, password2):    
-    # Check if these password fields match
-    if (password != password2):
-        return [False, "Passwords do not match"]
+def check_params(username, email, password, password2):    
+    # Check if username is valid
+    if username_is_valid(username) == False:
+        return [False, "Username is invalid"]
     
     # Get connection, make cursor
     conn = conn_pool.connect()
     cursor = conn.cursor()
-
+    
     # Check if this username already exists in db
     cursor.execute("""
             SELECT * 
@@ -62,6 +63,10 @@ def check_registration_params(username, email, password, password2):
     if result is not None:
         conn.close()
         return [False, "There is already an account with this username"]
+
+    # Check if email is valid
+    if email_is_valid(email) == False:
+        return [False, "Email is invalid"]
 
     # Check if this email already exists in db
     cursor.execute("""
@@ -76,7 +81,46 @@ def check_registration_params(username, email, password, password2):
         conn.close()
         return [False, "There is already an account with this email"]
     
+    conn.close()
+
+    # Check if password is valid
+    if password_is_valid(password) == False:
+        return [False, "Password is invalid"]
+    
+    # Check if these password fields match
+    if (password != password2):
+        return [False, "Passwords do not match"]
+    
     return [True, "No problems with registration parameters"]
+#end check_params()
+
+def username_is_valid(username):
+    if (len(username) < 6 or len(username) > 25):
+        return False #username is too short or too long
+    if re.search("[^a-z0-9_-]", username) is not None:
+        return False #username contains invalid characters
+    return True
+#end username_is_valid()
+
+def email_is_valid(email):
+    if (len(email) > 256):
+        return False #email is too long
+    if re.search(".*@[^@.]*\.[^@.]+", email) is None:
+        return False #email is not in the format (something)@(something).(something)
+    return True
+#end email_is_valid()
+
+def password_is_valid(password):
+    if (len(password) < 8 or len(password) > 20):
+        return False #password is too short or too long
+    if re.search("[A-Z]", password) is None:
+        return False #password is missing an uppercase letter
+    if re.search("[a-z]", password) is None:
+        return False #password is missing a lowercase letter
+    if re.search("[0-9]", password) is None:
+        return False #password is missing a number
+    return True
+#end password_is_valid() 
 
 def add_user(username, email, password, debug=False):
     if(debug): print(username, email, password)

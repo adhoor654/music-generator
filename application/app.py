@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, session
 from flask_session import Session
 import pandas as pd
 import joblib
-import login_register
+import registration
 
 PKL_FILEPATH = "ML integration/clf.pkl"
 
@@ -44,10 +44,10 @@ def faq():
 @app.route('/sign_in/', methods=['GET', 'POST'])
 def sign_in():
     if request.method == "POST":
-        username = request.form.get("username")
+        username = request.form.get("username").lower()
         password = request.form.get("password")
         
-        if login_register.authenticate_user(username, password, debug=True):
+        if registration.authenticate_user(username, password, debug=True):
             result = "Sign in successful"
             session["logged_in"] = True
             session["username"] = username
@@ -63,15 +63,15 @@ def sign_in():
 @app.route('/sign_up/', methods=['GET', 'POST'])
 def sign_up():
     if request.method == "POST":
-        username   = request.form.get("username")
+        username   = request.form.get("username").lower()
         email      = request.form.get("email")
         password   = request.form.get("password")
-        password2 = request.form.get("confirm password")
+        password2  = request.form.get("confirm password")
 
-        form_is_ok = login_register.check_registration_params(username, email, password, password2)
+        form_is_ok = registration.check_params(username, email, password, password2)
         print(form_is_ok)
         if form_is_ok[0]:
-            if login_register.add_user(username, email, password, debug=True):
+            if registration.add_user(username, email, password, debug=True):
                 result = "Thanks for signing up!"
                 session["logged_in"] = True
                 session["username"] = username
