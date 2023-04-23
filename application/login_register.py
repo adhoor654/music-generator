@@ -41,6 +41,43 @@ def authenticate_user(username, password, debug=False):
     return True
 #end authenticate_user()
 
+def check_registration_params(username, email, password, password2):    
+    # Check if these password fields match
+    if (password != password2):
+        return [False, "Passwords do not match"]
+    
+    # Get connection, make cursor
+    conn = conn_pool.connect()
+    cursor = conn.cursor()
+
+    # Check if this username already exists in db
+    cursor.execute("""
+            SELECT * 
+            FROM  User 
+            WHERE username = %(username)s
+            """, {
+                'username' : username
+            } )
+    result = cursor.fetchone()
+    if result is not None:
+        conn.close()
+        return [False, "There is already an account with this username"]
+
+    # Check if this email already exists in db
+    cursor.execute("""
+            SELECT * 
+            FROM  User 
+            WHERE email = %(email)s
+            """, {
+                'email' : email
+            } )
+    result = cursor.fetchone()
+    if result is not None:
+        conn.close()
+        return [False, "There is already an account with this email"]
+    
+    return [True, "No problems with registration parameters"]
+
 def add_user(username, email, password, debug=False):
     if(debug): print(username, email, password)
     

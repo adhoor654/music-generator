@@ -59,16 +59,20 @@ def sign_up():
         username   = request.form.get("username")
         email      = request.form.get("email")
         password   = request.form.get("password")
-        password_2 = request.form.get("confirm password")
+        password2 = request.form.get("confirm password")
 
-        if login_register.add_user(username, email, password, debug=True):
-            result = "Sign up successful"
+        form_is_ok = login_register.check_registration_params(username, email, password, password2)
+        print(form_is_ok)
+        if form_is_ok[0]:
+            if login_register.add_user(username, email, password, debug=True):
+                result = "Thanks for signing up!"
+            else:
+                result = "Sorry, something went wrong."
         else:
-            result = "Sign up failed"
-
+            result = "Sign up failed:\n" + form_is_ok[1]
     else:
         result = ""
-        
+
     return render_template("sign_up.html", output = result)
 
 # Run the app
