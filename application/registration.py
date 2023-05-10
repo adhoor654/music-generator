@@ -1,5 +1,5 @@
 from db_connection import conn_pool
-from argon2 import PasswordHasher
+from argon2 import PasswordHasher as CffiPasswordHasher
 import re
 
 def authenticate_user(username, password, debug=False):
@@ -27,7 +27,7 @@ def authenticate_user(username, password, debug=False):
         return False
     
     # Verify password_hash from db against submitted password
-    hasher = PasswordHasher()
+    hasher = CffiPasswordHasher()
     try:
         hasher.verify(result['password_hash'], password)
     except Exception as e: 
@@ -130,7 +130,7 @@ def add_user(username, email, password, debug=False):
     cursor = conn.cursor()
 
     # Generate hash for submitted password
-    hasher = PasswordHasher()
+    hasher = CffiPasswordHasher()
     try:
         password_hash = hasher.hash(password)
     except Exception as e:
