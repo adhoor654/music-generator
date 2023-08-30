@@ -1,0 +1,10 @@
+gunicorn==20.1.0
+joblib
+pandas
+flask_session
+argon2
+app
+flask
+sqlalchemy
+registration
+conn_pool
