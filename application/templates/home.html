@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../static/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <title>Music Generator</title>
     </head>
     
@@ -99,6 +100,17 @@
             </div>
         </form>
         <br/>
-        <p style="text-align: center;">{{ output }}</p>
+        <div style="text-align:center; margin-top:10px">
+            <p style="font-size:24px">Your output</p>
+            <p style="margin-top:16px"><audio controls src="../static/{{output}}.mp3"></audio></p>
+            <button class="download-button"><a href="../static/{{output}}.mid" download="{{output}}.mid">MIDI <i class="fa fa-download"></i></a></button> 
+            <button class="download-button"><a href="../static/{{output}}.mp3" download="{{output}}.mp3">MP3 <i class="fa fa-download"></i></a></button>
+            <button class="download-button"><a href="../static/{{output}}.wav" download="{{output}}.wav">WAV <i class="fa fa-download"></i></a></button>  
+            <br/>
+            {% if session["logged_in"] == True %}
+            <button class="download-button"><a>Bookmark song</button>  
+            {% endif %}
+        </div>
+        
     </body>
 </html>

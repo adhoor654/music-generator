@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 import registration
 
-PKL_FILEPATH = "ML integration/clf.pkl"
+PKL_FILEPATH = "clf.pkl"
 
 # Declare a Flask app
 app = Flask(__name__)
@@ -31,6 +31,7 @@ def main():
         
         # Get prediction
         prediction = clf.predict(X)[0]
+        prediction = "Sample"
         
     else:
         prediction = ""

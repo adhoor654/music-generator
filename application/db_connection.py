@@ -4,7 +4,7 @@ import pymysql
 def get_conn():
     conn = pymysql.connect( host="localhost",
                             user="root",
-                            password="password",
+                            password="Tltsdtrqqxkirv",
                             database="music-generator",
                             cursorclass=pymysql.cursors.DictCursor )
     return conn
