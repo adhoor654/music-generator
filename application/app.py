@@ -3,7 +3,9 @@ from flask_session import Session
 import pandas as pd
 import joblib
 import registration
-
+from model.baseline_generation import generate
+#from midi_synthesizer import synthesize
+ 
 PKL_FILEPATH = "clf.pkl"
 
 # Declare a Flask app
@@ -31,8 +33,12 @@ def main():
         
         # Get prediction
         prediction = clf.predict(X)[0]
-        prediction = "Sample"
         
+        filepath = generate()
+        print(filepath)
+        #synthesize(filepath)
+
+        prediction = filepath
     else:
         prediction = ""
         

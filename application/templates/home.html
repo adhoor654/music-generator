@@ -102,10 +102,10 @@
         <br/>
         <div style="text-align:center; margin-top:10px">
             <p style="font-size:24px">Your output</p>
-            <p style="margin-top:16px"><audio controls src="../static/{{output}}.mp3"></audio></p>
-            <button class="download-button"><a href="../static/{{output}}.mid" download="{{output}}.mid">MIDI <i class="fa fa-download"></i></a></button> 
-            <button class="download-button"><a href="../static/{{output}}.mp3" download="{{output}}.mp3">MP3 <i class="fa fa-download"></i></a></button>
-            <button class="download-button"><a href="../static/{{output}}.wav" download="{{output}}.wav">WAV <i class="fa fa-download"></i></a></button>  
+            <p style="margin-top:16px"><audio controls src="../static/test_output.mp3"></audio></p>
+            <button class="download-button"><a href="../{{output}}.mid" download="test_output.mid">MIDI <i class="fa fa-download"></i></a></button> 
+            <button class="download-button"><a href="../{{output}}.mp3" download="test_output.mp3">MP3 <i class="fa fa-download"></i></a></button>
+            <button class="download-button"><a href="../{{output}}.wav" download="test_output.wav">WAV <i class="fa fa-download"></i></a></button>  
             <br/>
             {% if session["logged_in"] == True %}
             <button class="download-button"><a>Bookmark song</button>  
