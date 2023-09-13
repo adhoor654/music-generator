@@ -10,3 +10,4 @@ scikit-learn==1.2.1
 tensorflow==2.13.0
 PyMySQL==1.0.3
 music21==9.1.0
+midi2audio

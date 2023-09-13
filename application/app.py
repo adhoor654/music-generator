@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 import registration
 from model.baseline_generation import generate
-#from midi_synthesizer import synthesize
+from midi_synthesizer import synthesize
  
 PKL_FILEPATH = "clf.pkl"
 
@@ -36,7 +36,7 @@ def main():
         
         filepath = generate()
         print(filepath)
-        #synthesize(filepath)
+        synthesize(filepath)
 
         prediction = filepath
     else:
