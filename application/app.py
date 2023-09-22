@@ -5,8 +5,6 @@ import joblib
 import registration
 from model.baseline_generation import generate
 from midi_synthesizer import synthesize
- 
-PKL_FILEPATH = "clf.pkl"
 
 # Declare a Flask app
 app = Flask(__name__)
@@ -20,29 +18,29 @@ def main():
     
     # If a form is submitted
     if request.method == "POST":
-        
-        # Unpickle classifier
-        clf = joblib.load(PKL_FILEPATH)
-        
+                
         # Get values through input bars
-        height = request.form.get("height")
-        weight = request.form.get("weight")
-        
+        genre = request.form.get("genre")
+        tempo = request.form["tempo"]
+        length = request.form.get("length")
+        instruments = request.form.getlist("instruments")
+        dynamics = request.form.get("dynamics")
+
         # Put inputs to dataframe
-        X = pd.DataFrame([[height, weight]], columns = ["Height", "Weight"])
+        params = pd.DataFrame([[genre, tempo, length, instruments, dynamics]], columns = ["Genre", "Tempo", "Length", "Instruments", "Dynamics"])
+        print(params)
         
-        # Get prediction
-        prediction = clf.predict(X)[0]
-        
+        #Generate & synthesize song
         filepath = generate()
         print(filepath)
+
         synthesize(filepath)
 
-        prediction = filepath
+        music = filepath
     else:
-        prediction = ""
+        music = ""
         
-    return render_template("home.html", output = prediction)
+    return render_template("home.html", output = music)
 
 @app.route('/faq/')
 def faq():
