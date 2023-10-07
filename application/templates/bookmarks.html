@@ -22,5 +22,31 @@
             </ul>
         </nav>
         <h1>{{ session["username"] }}'s Bookmarks</h1>
+        <div class="bookmarks">
+            <table style="text-align:center">
+                <tr>
+                    <th>Created</th>
+                    <th>Genre</th>
+                    <th>Tempo</th>
+                    <th>Length</th>
+                    <th>Instruments</th>
+                    <th>Dynamics</th>
+                    <th>MIDI</th>
+                    <th>WAV</th>
+                    <th>Delete</th>
+                </tr>
+                {% for row in input %}<tr>
+                   <td>{{ row['username'] }}</td>  <!--This is actually the timestamp-->
+                   <td>{{ row['genre'] }}</td>  
+                   <td>{{ row['tempo'] }}</td>  
+                   <td>{{ row['length'] }}</td>  
+                   <td>{{ row['instruments'] }}</td>  
+                   <td>{{ row['dynamics'] }}</td>  
+                   <td><button class="download-button"><a href="{{ row['midi_link'] }}" download="{{ row['time_created'] }}.mid">Download</i></a></button></td>   
+                   <td><button class="download-button"><a href="{{ row['wav_link'] }}"  download="{{ row['time_created'] }}.wav">Download</i></a></button></td>   
+                   <td><form style="width:100%" method="post" action="{{ url_for('delete_bookmark', time_created=row['time_created']) }}"><button class="delete-button" type="submit" value="Delete">Delete</button></form></td>   
+                </tr>{% endfor %}
+            </table>
+        </div>
     </body>
 </html>

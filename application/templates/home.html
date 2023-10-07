@@ -103,11 +103,13 @@
             <p style="font-size:24px">Your output</p>
             <p style="margin-top:16px"><audio controls src="../static/test_output.mp3"></audio></p>
             <button class="download-button"><a href="../{{output}}.mid" download="test_output.mid">MIDI <i class="fa fa-download"></i></a></button> 
-            <button class="download-button"><a href="../{{output}}.mp3" download="test_output.mp3">MP3 <i class="fa fa-download"></i></a></button>
             <button class="download-button"><a href="../{{output}}.wav" download="test_output.wav">WAV <i class="fa fa-download"></i></a></button>  
             <br/>
             {% if session["logged_in"] == True %}
-            <button class="download-button"><a>Bookmark song</button>  
+            <form method="post" action="{{ url_for('add_bookmark') }}">
+                <input type="text" required minlength="1" maxlength="35" placeholder="Name your song..." pattern="[a-z0-9]+" size="20">
+                <button class="bookmark-button" type="submit" value="Bookmark">Bookmark</button>
+            </form>
             {% endif %}
         </div>
         

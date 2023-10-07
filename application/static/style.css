@@ -351,6 +351,33 @@ form input[type="radio"] {
     color: #aaa;
 }
 
+.bookmark-button {
+    display: inline;
+    border: none;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 16px;
+    font-size: 20px;
+    padding-left:18px;
+    padding-right:18px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.bookmark-button a{
+    background-color:teal;
+    border-radius: 4px;
+    padding: 10px 18px;
+    text-align: center;   
+    font-size: 20px;
+    color: white;
+}
+
+.bookmark-button a:hover {
+    background-color: #4c9e9e;
+}
+
 .download-button {
     border: none;
     margin-top: 20px;
@@ -370,5 +397,34 @@ form input[type="radio"] {
 
 .download-button a:hover {
     background-color: #4c9e9e;
+}
+
+.delete-button {
+    border: none;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 16px;
+    background-color:#800000;
+    border-radius: 4px;
+    padding: 10px 18px;
+    text-align: center;   
+    font-size: 20px;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #9c4c4c;
+}
+
+
+.bookmarks table, th, td {
+    margin-left:auto;
+    margin-right:auto;
+    width:70%;
+    border: 1px solid;
+    border-collapse:collapse;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 

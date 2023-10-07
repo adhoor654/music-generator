@@ -5,6 +5,8 @@ import joblib
 import registration
 from model.baseline_generation import generate
 from midi_synthesizer import synthesize
+from db_connection import conn_pool
+import datetime
 
 # Declare a Flask app
 app = Flask(__name__)
@@ -35,6 +37,10 @@ def main():
         print(filepath)
 
         synthesize(filepath)
+
+        #rename and pack files for potential upload?
+
+        #make Generation settings textfile
 
         music = filepath
     else:
@@ -98,7 +104,80 @@ def sign_out():
 
 @app.route('/bookmarks/')
 def bookmarks():
-    return render_template("bookmarks.html")
+    # Get connection, make cursor
+    conn = conn_pool.connect()
+    cursor = conn.cursor()
+
+    # Grab all bookmark data for user
+    username = session["username"]
+    cursor.execute("""
+            SELECT * 
+            FROM  Bookmarks 
+            WHERE username = %(username)s
+            """, {
+                'username' : username
+            } )
+    bookmarkData = cursor.fetchall()
+
+    for row in bookmarkData:
+        delta = (datetime.datetime.today() - row['time_created']).total_seconds()
+        if (delta < 60): #Less than a minute
+            timeDiff = "Less than 1 minute ago"
+        elif (delta < 3600): #Less than an hour
+            delta = str(int(delta / 60)) #Convert to minutes
+            timeDiff = delta + " minute(s) ago"
+        elif (delta < 86400): #Less than an day
+            delta = str(int(delta / 3600)) #Convert to hours
+            timeDiff = delta + " hour(s) ago"
+        elif (delta < 2592000): #Less than a month
+            delta = str(int(delta / 86400)) #Convert to days
+            timeDiff = delta + " day(s) ago"
+        else:
+            timeDiff="More than one month ago"
+        row['username'] = timeDiff
+    print(bookmarkData)
+    conn.close()
+    return render_template("bookmarks.html", input = bookmarkData) 
+
+@app.route('/bookmarks/delete=<time_created>', methods=['GET', 'POST'])
+def delete_bookmark(time_created):
+    print("Deleting bookmark created at", time_created)
+    # Get connection, make cursor
+    conn = conn_pool.connect()
+    cursor = conn.cursor()
+
+    username=session["username"]
+    cursor.execute("""
+            DELETE FROM Bookmarks 
+            WHERE username = %(username)s
+                AND time_created = %(time_created)s
+            """, {
+                'username' : username,
+                'time_created' : time_created 
+            } )
+    conn.commit()
+    conn.close()
+    return redirect('/bookmarks/')
+
+@app.route('/bookmarks/new', methods=['GET', 'POST'])
+def add_bookmark():
+    print("Adding bookmark created at", datetime.datetime.today())
+    # Get connection, make cursor
+    # conn = conn_pool.connect()
+    # cursor = conn.cursor()
+
+    # username=session["username"]
+    # cursor.execute("""
+    #         DELETE FROM Bookmarks 
+    #         WHERE username = %(username)s
+    #             AND time_created = %(time_created)s
+    #         """, {
+    #             'username' : username,
+    #             'time_created' : time_created 
+    #         } )
+    # conn.commit()
+    # conn.close()
+    return redirect('/bookmarks/')
 
 # Run the app
 if __name__ == '__main__':
