@@ -25,6 +25,7 @@
         <div class="bookmarks">
             <table style="text-align:center">
                 <tr>
+                    <th>Song</th>
                     <th>Created</th>
                     <th>Genre</th>
                     <th>Tempo</th>
@@ -36,6 +37,7 @@
                     <th>Delete</th>
                 </tr>
                 {% for row in input %}<tr>
+                   <td>{{ row['song_name'] }}</td>
                    <td>{{ row['username'] }}</td>  <!--This is actually the timestamp-->
                    <td>{{ row['genre'] }}</td>  
                    <td>{{ row['tempo'] }}</td>  

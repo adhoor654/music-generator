@@ -25,8 +25,8 @@
         <form name="generate_music", method="POST"><br/>
             <input type="hidden" name="height", placeholder="Enter height in cm" value="12" required/>
             <input type="hidden" name="weight", placeholder="Enter weight in kg" value="1.2" required/>
-            <div class="submit_button">
-                <input type="submit" value="Generate">
+            <div class="action_button">
+                <input type="submit" name="action" value="Generate">
             </div>
             <div class="home_grid">
                 <div class="home_one">
@@ -97,21 +97,18 @@
                     
                 </div>
             </div>
-        </form>
-        <br/>
-        <div style="text-align:center; margin-top:10px">
-            <p style="font-size:24px">Your output</p>
-            <p style="margin-top:16px"><audio controls src="../static/test_output.mp3"></audio></p>
-            <button class="download-button"><a href="../{{output}}.mid" download="test_output.mid">MIDI <i class="fa fa-download"></i></a></button> 
-            <button class="download-button"><a href="../{{output}}.wav" download="test_output.wav">WAV <i class="fa fa-download"></i></a></button>  
             <br/>
-            {% if session["logged_in"] == True %}
-            <form method="post" action="{{ url_for('add_bookmark') }}">
-                <input type="text" required minlength="1" maxlength="35" placeholder="Name your song..." pattern="[a-z0-9]+" size="20">
-                <button class="bookmark-button" type="submit" value="Bookmark">Bookmark</button>
-            </form>
-            {% endif %}
-        </div>
-        
+            <div style="text-align:center; margin-top:10px">
+                <p style="font-size:24px">Your output</p>
+                <p style="margin-top:16px"><audio controls src="../static/test_output.mp3"></audio></p>
+                <button class="download-button"><a href="../{{output}}.mid" download="test_output.mid">MIDI <i class="fa fa-download"></i></a></button> 
+                <button class="download-button"><a href="../{{output}}.wav" download="test_output.wav">WAV <i class="fa fa-download"></i></a></button>  
+                <br/>
+                {% if session["logged_in"] == True %}
+                    <input type="text" name="song_name" minlength="1" maxlength="35" placeholder="Name your song..." pattern="[a-z0-9]+" size="20">
+                    <input type="submit" name="action" value="Bookmark" class="download-button" style="display:inline; font-size:20px">
+                {% endif %}
+            </div>
+        </form>
     </body>
 </html>

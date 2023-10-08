@@ -20,33 +20,95 @@ def main():
     
     # If a form is submitted
     if request.method == "POST":
-                
-        # Get values through input bars
-        genre = request.form.get("genre")
-        tempo = request.form["tempo"]
-        length = request.form.get("length")
-        instruments = request.form.getlist("instruments")
-        dynamics = request.form.get("dynamics")
+        if request.form["action"] == "Generate":        
+            # Get values through input bars
+            genre = request.form.get("genre")
+            tempo = request.form["tempo"]
+            length = request.form.get("length")
+            instruments = request.form.getlist("instruments")
+            dynamics = request.form.get("dynamics")
 
-        # Put inputs to dataframe
-        params = pd.DataFrame([[genre, tempo, length, instruments, dynamics]], columns = ["Genre", "Tempo", "Length", "Instruments", "Dynamics"])
-        print(params)
-        
-        #Generate & synthesize song
-        filepath = generate()
-        print(filepath)
+            # Put inputs to dataframe
+            params = pd.DataFrame([[genre, tempo, length, instruments, dynamics]], columns = ["Genre", "Tempo", "Length", "Instruments", "Dynamics"])
+            print(params)
+            
+            #Generate & synthesize song
+            filepath = generate()
+            print(filepath)
 
-        synthesize(filepath)
+            synthesize(filepath)
 
-        #rename and pack files for potential upload?
+            #rename and pack files for potential upload?
 
-        #make Generation settings textfile
+            #make Generation settings textfile
 
-        music = filepath
-    else:
-        music = ""
-        
-    return render_template("home.html", output = music)
+            music = filepath
+            return render_template("home.html", output = music)
+        elif request.form["action"] == "Bookmark":
+            
+            username=session["username"]
+            timestamp = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            print("Adding bookmark created at", timestamp)
+            # Get connection, make cursor
+            conn = conn_pool.connect()
+            cursor = conn.cursor()
+
+            #Set up arguments
+            song_name = request.form["song_name"]
+            if(song_name==""):
+                song_name = timestamp
+            print("THIS BOOKMARK IS NAMED", song_name)
+
+            match request.form["tempo"]:
+                case "1":
+                    tempo = "slow"
+                case "2":
+                    tempo = "medium"
+                case "3":
+                    tempo = "fast"
+
+            match request.form["length"]:
+                case "1":
+                    length = "short"
+                case "2":
+                    length = "medium"
+                case "3":
+                    length = "long"
+
+            match request.form["dynamics"]:
+                case "1":
+                    dynamics = "soft"
+                case "2":
+                    dynamics = "medium"
+                case "3":
+                    dynamics = "loud"
+
+            midi_link = "http://midi-link"
+            wav_link = "http://wav-link"
+
+            comma = ", "
+            instruments = comma.join(request.form.getlist("instruments"))
+
+            #Insert new bookmark entry
+            cursor.execute("""
+                    INSERT INTO Bookmarks VALUES (%(username)s, %(song_name)s, %(time_created)s, %(genre)s, %(tempo)s, %(length)s, %(instruments)s, %(dynamics)s, %(midi_link)s, %(wav_link)s)""",
+                    {
+                        'username' : username,
+                        'song_name' : song_name,
+                        'time_created' : timestamp,
+                        'genre' : request.form.get("genre"),
+                        'tempo' : tempo,
+                        'length' : length,
+                        'instruments' : instruments,
+                        'dynamics' : dynamics,
+                        'midi_link' : midi_link,
+                        'wav_link' : wav_link
+                    } )
+            conn.commit()
+            conn.close()
+
+            return redirect('/bookmarks/')
+    return render_template("home.html", output = "")
 
 @app.route('/faq/')
 def faq():
