@@ -2,7 +2,7 @@ import sqlalchemy.pool as pool
 import pymysql
 
 def get_conn():
-    conn = pymysql.connect( host="localhost",
+    conn = pymysql.connect( host="host.docker.internal",
                             user="root",
                             password="Tltsdtrqqxkirv",
                             database="music-generator",

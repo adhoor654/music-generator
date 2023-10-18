@@ -7,6 +7,7 @@ from model.baseline_generation import generate
 from midi_synthesizer import synthesize
 from db_connection import conn_pool
 import datetime
+import boto3
 
 # Declare a Flask app
 app = Flask(__name__)
@@ -44,21 +45,35 @@ def main():
 
             music = filepath
             return render_template("home.html", output = music)
-        elif request.form["action"] == "Bookmark":
-            
-            username=session["username"]
-            timestamp = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            print("Adding bookmark created at", timestamp)
+        elif request.form["action"] == "Bookmark": 
             # Get connection, make cursor
             conn = conn_pool.connect()
             cursor = conn.cursor()
 
-            #Set up arguments
+            #Set up arguments for upload
+            username=session["username"]
+            timestamp = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            print("Adding bookmark created at", timestamp)
+
             song_name = request.form["song_name"]
             if(song_name==""):
                 song_name = timestamp
             print("THIS BOOKMARK IS NAMED", song_name)
 
+            #Upload bookmark to s3
+            uploaded_filename = username + "_" + song_name
+            s3 = boto3.resource('s3',
+                aws_access_key_id='AWS_ACCESS_KEY',
+                aws_secret_access_key='SECRET_ACCESS_KEY')
+            bucket = s3.Bucket('cmpe295-riffmuse-generated-music')
+            
+            bucket.upload_file('static/test_output.mid', uploaded_filename+'.mid')
+            midi_link = 'https://cmpe295-riffmuse-generated-music.s3.us-west-1.amazonaws.com/'+uploaded_filename+'.mid'
+            
+            bucket.upload_file('static/test_output.wav', uploaded_filename+'.wav')
+            wav_link  = 'https://cmpe295-riffmuse-generated-music.s3.us-west-1.amazonaws.com/'+uploaded_filename+'.wav'
+
+            #Set up other arguments
             match request.form["tempo"]:
                 case "1":
                     tempo = "slow"
@@ -83,13 +98,10 @@ def main():
                 case "3":
                     dynamics = "loud"
 
-            midi_link = "http://midi-link"
-            wav_link = "http://wav-link"
-
             comma = ", "
             instruments = comma.join(request.form.getlist("instruments"))
 
-            #Insert new bookmark entry
+            #Insert new bookmark entry in database
             cursor.execute("""
                     INSERT INTO Bookmarks VALUES (%(username)s, %(song_name)s, %(time_created)s, %(genre)s, %(tempo)s, %(length)s, %(instruments)s, %(dynamics)s, %(midi_link)s, %(wav_link)s)""",
                     {
