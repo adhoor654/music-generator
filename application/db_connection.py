@@ -2,10 +2,10 @@ import sqlalchemy.pool as pool
 import pymysql
 
 def get_conn():
-    conn = pymysql.connect( host="host.docker.internal",
-                            user="root",
-                            password="Tltsdtrqqxkirv",
-                            database="music-generator",
+    conn = pymysql.connect( host="host",
+                            user="user",
+                            password="password",
+                            database="database",
                             cursorclass=pymysql.cursors.DictCursor )
     return conn
 

@@ -6,7 +6,7 @@ from midi_synthesizer import synthesize
 from processing import postprocess
 from db_connection import conn_pool
 import datetime
-import boto3
+from s3_connection import s3_bucket, link_prefix
 
 # Declare Flask app
 app = Flask(__name__)
@@ -66,16 +66,12 @@ def main():
 
             # Upload bookmark to s3
             uploaded_filename = username + "_" + song_name
-            s3 = boto3.resource('s3',
-                aws_access_key_id='AKIA6IAKFM3XLCMLYVPQ',
-                aws_secret_access_key='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') 
-            bucket = s3.Bucket('cmpe295-riffmuse-generated-music')
             
-            bucket.upload_file('static/test_output.mid', uploaded_filename+'.mid')
-            midi_link = 'https://cmpe295-riffmuse-generated-music.s3.us-west-1.amazonaws.com/'+uploaded_filename+'.mid'
+            s3_bucket.upload_file('static/test_output.mid', uploaded_filename+'.mid')
+            midi_link = link_prefix+uploaded_filename+'.mid'
             
-            bucket.upload_file('static/test_output.wav', uploaded_filename+'.wav')
-            wav_link  = 'https://cmpe295-riffmuse-generated-music.s3.us-west-1.amazonaws.com/'+uploaded_filename+'.wav'
+            s3_bucket.upload_file('static/test_output.wav', uploaded_filename+'.wav')
+            wav_link  = link_prefix+uploaded_filename+'.wav'
 
             # Set up other arguments
             map = { '1':'slow', '2':'medium', '3':'fast'}
