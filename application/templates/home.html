@@ -23,8 +23,6 @@
             </ul>
         </nav>
         <form name="generate_music", method="POST"><br/>
-            <input type="hidden" name="height", placeholder="Enter height in cm" value="12" required/>
-            <input type="hidden" name="weight", placeholder="Enter weight in kg" value="1.2" required/>
             <div class="action_button">
                 <input type="submit" name="action" value="Generate">
             </div>
@@ -59,7 +57,7 @@
                 <div class="home_two">
                     <div class="slider">
                         <label for="tempo">Tempo</label><br/>
-                        <input type="range" min=1 max=3 value={{ params['tempo']}} class="slider" id="tempo" name="tempo">
+                        <input type="range" min=1 max=3 value={{ params['tempo'] }} class="slider" id="tempo" name="tempo">
                         <div class="minmax_labels">
                             <div>slow</div>
                             <div>fast</div>

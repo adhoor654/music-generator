@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, session
 from flask_session import Session
-from pandas import DataFrame
 import registration
 from model.baseline_generation import generate
 from midi_synthesizer import synthesize
