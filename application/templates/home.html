@@ -3,12 +3,12 @@
     <head>
         <link rel="stylesheet" href="../static/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <title>Music Generator</title>
+        <title>RiffMuse - An Inspirational Tool for Composers</title>
     </head>
     
     <body>
         <nav class="navbar">
-            <div class="logo"><a href="{{ url_for('main') }}">HOME</a></div>
+            <div class="logo"><a href="{{ url_for('main') }}">RiffMuse</a></div>
             <ul  class="nav-links">
                 <div class="menu">
                     <li><a href="{{ url_for('faq') }}">FAQ</a></li>
@@ -23,8 +23,6 @@
             </ul>
         </nav>
         <form name="generate_music", method="POST"><br/>
-            <input type="hidden" name="height", placeholder="Enter height in cm" value="12" required/>
-            <input type="hidden" name="weight", placeholder="Enter weight in kg" value="1.2" required/>
             <div class="action_button">
                 <input type="submit" name="action" value="Generate">
             </div>
@@ -32,18 +30,34 @@
                 <div class="home_one">
                     <fieldset>
                         <legend>Genre</legend>
-                        <input type="radio" id="classical" name="genre" checked="checked" value="classical">
+                        {% if 'classical' in params.values() %}
+                        <input type="radio" id="classical" name="genre" value="classical" checked="checked">
                         <label for="classical">Classical</label><br>
                         <input type="radio" id="traditional" name="genre" value="traditional">
                         <label for="traditional">Traditional</label><br>
                         <input type="radio" id="jazz" name="genre" value="jazz">
                         <label for="jazz">Jazz</label><br>
+                        {% elif 'traditional' in params.values() %}
+                        <input type="radio" id="classical" name="genre" value="classical">
+                        <label for="classical">Classical</label><br>
+                        <input type="radio" id="traditional" name="genre" value="traditional" checked="checked">
+                        <label for="traditional">Traditional</label><br>
+                        <input type="radio" id="jazz" name="genre" value="jazz">
+                        <label for="jazz">Jazz</label><br>
+                        {% else %}
+                        <input type="radio" id="classical" name="genre" value="classical">
+                        <label for="classical">Classical</label><br>
+                        <input type="radio" id="traditional" name="genre" value="traditional">
+                        <label for="traditional">Traditional</label><br>
+                        <input type="radio" id="jazz" name="genre" value="jazz" checked="checked">
+                        <label for="jazz">Jazz</label><br>
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div class="home_two">
                     <div class="slider">
                         <label for="tempo">Tempo</label><br/>
-                        <input type="range" min=1 max=3 value=2 class="slider" id="tempo" name="tempo">
+                        <input type="range" min=1 max=3 value={{ params['tempo'] }} class="slider" id="tempo" name="tempo">
                         <div class="minmax_labels">
                             <div>slow</div>
                             <div>fast</div>
@@ -53,7 +67,7 @@
                 <div class="home_three">
                     <div class="slider">
                         <label for="length">Length</label><br/>
-                        <input type="range" min=1 max=3 value=1 class="slider" id="length" name="length"/>
+                        <input type="range" min=1 max=3 value={{ params['length'] }} class="slider" id="length" name="length"/>
                         <div class="minmax_labels">
                             <div>short</div>
                             <div>long</div>
@@ -65,29 +79,56 @@
                         <fieldset>
                             <legend>Instrument Selection</legend>
                             <div class="instrument_half-box">
-                                
-                                <input type="checkbox" id="piano" name="instruments" value="piano" checked/>
+                                {% if 'piano' in params.values() %}
+                                <input type="checkbox" id="piano" name="piano" value="piano" checked/>
+                                {% else %}
+                                <input type="checkbox" id="piano" name="piano" value="piano"/>
+                                {% endif %}
                                 <label for="piano">Piano</label><br/>
-                                <input type="checkbox" id="guitar" name="instruments" value="guitar" checked/>
+                                
+                                {% if 'guitar' in params.values() %}
+                                <input type="checkbox" id="guitar" name="guitar" value="guitar" checked/>
+                                {% else %}
+                                <input type="checkbox" id="guitar" name="guitar" value="guitar"/>
+                                {% endif %}
                                 <label for="guitar">Guitar</label><br/>
-                                <input type="checkbox" id="drums" name="instruments" value="drums" checked/>
+
+                                {% if 'drums' in params.values() %}
+                                <input type="checkbox" id="drums" name="drums" value="drums" checked/>
+                                {% else %}
+                                <input type="checkbox" id="drums" name="drums" value="drums"/>
+                                {% endif %}
                                 <label for="drums">Drums</label><br/>
                             </div>
                             <div class="instrument_half-box">
-                            <input type="checkbox" id="violin" name="instruments" value="violin" checked/>
-                            <label for="violin">Violin</label><br/>
-                            <input type="checkbox" id="flute" name="instruments" value="flute" checked/>
-                            <label for="flute">Flute</label><br/>
-                            <input type="checkbox" id="saxophone" name="instruments" value="saxophone" checked/>
-                            <label for="saxophone">Saxophone</label><br/>
-                        </div>
+                                {% if 'violin' in params.values() %}
+                                <input type="checkbox" id="violin" name="violin" value="violin" checked/>
+                                {% else %}
+                                <input type="checkbox" id="violin" name="violin" value="violin"/>
+                                {% endif %}
+                                <label for="violin">Violin</label><br/>
+
+                                {% if 'flute' in params.values() %}
+                                <input type="checkbox" id="flute" name="flute" value="flute" checked/>
+                                {% else %}
+                                <input type="checkbox" id="flute" name="flute" value="flute"/>
+                                {% endif %}
+                                <label for="flute">Flute</label><br/>
+
+                                {% if 'saxophone' in params.values() %}
+                                <input type="checkbox" id="saxophone" name="saxophone" value="saxophone" checked/>
+                                {% else %}
+                                <input type="checkbox" id="saxophone" name="saxophone" value="saxophone"/>
+                                {% endif %}
+                                <label for="saxophone">Saxophone</label><br/>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
                         <div class="home_five">
                             <div class="slider">
                                 <label for="dynamics">Dynamic Control</label><br/>
-                                <input type="range" min=1 max=3 value=2 class="slider" id="dynamics" name="dynamics"/>
+                                <input type="range" min=1 max=3 value={{ params['dynamics'] }} class="slider" id="dynamics" name="dynamics"/>
                                 <div class="minmax_labels">
                                     <div>soft</div>
                                     <div>loud</div>
@@ -100,7 +141,7 @@
             <br/>
             <div style="text-align:center; margin-top:10px">
                 <p style="font-size:24px">Your output</p>
-                <p style="margin-top:16px"><audio controls src="../static/test_output.mp3"></audio></p>
+                <p style="margin-top:16px"><audio controls src="../{{output}}.wav"></audio></p>
                 <button class="download-button"><a href="../{{output}}.mid" download="test_output.mid">MIDI <i class="fa fa-download"></i></a></button> 
                 <button class="download-button"><a href="../{{output}}.wav" download="test_output.wav">WAV <i class="fa fa-download"></i></a></button>  
                 <br/>
