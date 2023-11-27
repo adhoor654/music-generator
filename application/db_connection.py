@@ -3,7 +3,7 @@ import pymysql
 
 def get_conn():
 
-    conn = pymysql.connect( host="project.cckl0buwvllv.us-east-1.rds.amazonaws.com",
+    conn = pymysql.connect( host="project.cjq9ha2mxapc.us-east-1.rds.amazonaws.com",
                             user="admin",
                             password="admin295",
                             database="project",
