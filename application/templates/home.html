@@ -30,23 +30,23 @@
                 <div class="home_one">
                     <fieldset>
                         <legend>Genre</legend>
-                        {% if 'classical' in params.values() %}
-                        <input type="radio" id="classical" name="genre" value="classical" checked="checked">
-                        <label for="classical">Classical</label><br>
+                        {% if 'Classical' in params.values() %}
+                        <input type="radio" id="Classical" name="genre" value="Classical" checked="checked">
+                        <label for="Classical">Classical</label><br>
                         <input type="radio" id="Pop" name="genre" value="Pop">
                         <label for="Pop">Pop</label><br>
                         <input type="radio" id="Rock" name="genre" value="Rock">
                         <label for="Rock">Rock</label><br>
                         {% elif 'Pop' in params.values() %}
-                        <input type="radio" id="classical" name="genre" value="classical">
-                        <label for="classical">Classical</label><br>
+                        <input type="radio" id="Classical" name="genre" value="Classical">
+                        <label for="Classical">Classical</label><br>
                         <input type="radio" id="Pop" name="genre" value="Pop" checked="checked">
                         <label for="Pop">Pop</label><br>
                         <input type="radio" id="Rock" name="genre" value="Rock">
                         <label for="Rock">Rock</label><br>
                         {% else %}
-                        <input type="radio" id="classical" name="genre" value="classical">
-                        <label for="classical">Classical</label><br>
+                        <input type="radio" id="Classical" name="genre" value="Classical">
+                        <label for="Classical">Classical</label><br>
                         <input type="radio" id="Pop" name="genre" value="Pop">
                         <label for="Pop">Pop</label><br>
                         <input type="radio" id="Rock" name="genre" value="Rock" checked="checked">
