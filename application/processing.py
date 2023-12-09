@@ -90,7 +90,7 @@ def postprocess(midi_filepath, generation_params):
     if (tempo_multplier != 1):
         midi = midi.augmentOrDiminish(tempo_multplier) 
 
-    relative_path_output = 'MIDI/test_output_' + str(instr_instance()) + 'withdynam_' + str(dynam) + '_withtem_' +str(tem) +'_' +  str(path_leaf(midi_filepath + ".mid"))
+    relative_path_output = 'model/MIDI/test_output_' + str(instr_instance()) + 'withdynam_' + str(dynam) + '_withtem_' +str(tem) +'_' +  str(path_leaf(midi_filepath + ".mid"))
 
     #print(relative_path_output)
 
@@ -116,7 +116,7 @@ def postprocess(midi_filepath, generation_params):
 
     #print(output_mid, duration)
 
-    relative_path_output = 'MIDI/test_output_clip_' + str(instr_instance()) + 'withdynam_' + str(dynam) + '_withtem_' +str(tem) +'_''_withLeng_'+str(leng)+ str(path_leaf(midi_filepath + ".mid"))
+    relative_path_output = 'model/MIDI/test_output_clip_' + str(instr_instance()) + 'withdynam_' + str(dynam) + '_withtem_' +str(tem) +'_''_withLeng_'+str(leng)+ str(path_leaf(midi_filepath + ".mid"))
 
     #print(relative_path_output)
 
