@@ -13,3 +13,8 @@ music21==9.1.0
 midi2audio==0.1.1
 boto3==1.28.62
 cryptography==39.0.1
+pytorch
+pypianoroll
+xmldataset
+ipdb
+matplotlib
