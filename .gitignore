@@ -1,3 +1,4 @@
-
 flask_session/
 application/295.code-workspace
+.dockerignore
+*.tar
